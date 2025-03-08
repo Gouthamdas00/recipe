@@ -91,7 +91,7 @@ const loginUser = asyncHandler(async(req, resp) => {
 
     const { accessToken } = await generateAccessToken(user._id)
 
-    const loggedInUser = await User.findById(user._id).select(" --password")
+    const loggedInUser = await User.findById(user._id).select(" -password");
 
     return resp
         .status(200)

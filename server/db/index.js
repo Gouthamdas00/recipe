@@ -10,12 +10,12 @@ const connectDB = async () => {
             throw new Error("MONGODB_URI is not defined in .env file");
         }
 
-        const connectionInstance = await mongoose.connect(
-            `${process.env.MONGODB_URI}/${DB_NAME}`, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            }
-        );
+        // Connect to MongoDB with dbName as an option (not appended in the URI)
+        const connectionInstance = await mongoose.connect(process.env.MONGODB_URI, {
+            dbName: DB_NAME,  // Correct way to specify the database
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
 
         console.log(`✅ MONGODB CONNECTED!! DB HOST: ${connectionInstance.connection.host}`);
     } catch (error) {
